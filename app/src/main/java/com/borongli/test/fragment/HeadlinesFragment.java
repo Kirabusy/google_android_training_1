@@ -35,7 +35,7 @@ public class HeadlinesFragment extends ListFragment {
     @Override
     public void onStart() {
         super.onStart();
-        if (getFragmentManager().findFragmentById(R.id.article) != null) {
+        if (getFragmentManager().findFragmentById(R.id.fragment_container) != null) {
             // TODO: 2018/1/17 implement two-pane layout
         }
     }

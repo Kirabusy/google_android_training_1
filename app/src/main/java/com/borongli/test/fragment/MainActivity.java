@@ -2,7 +2,7 @@ package com.borongli.test.fragment;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.support.v4.app.FragmentTransaction;
 
 public class MainActivity extends FragmentActivity
         implements HeadlinesFragment.OnHeadlinesSelectedListener {
@@ -13,8 +13,8 @@ public class MainActivity extends FragmentActivity
         setContentView(R.layout.new_articles);
 
         //test
-        TextView textView = (TextView) findViewById(R.id.textView);
-        textView.setText(String.valueOf(getTaskId()));
+        //TextView textView = (TextView) findViewById(R.id.textView);
+        //textView.setText(String.valueOf(getTaskId()));
 
         // Check that the activity is using the layout version with
         // the fragment_container FrameLayout
@@ -35,12 +35,18 @@ public class MainActivity extends FragmentActivity
         // check if articleFragment is exist or not
         // if yes, it's two-pane layout
         ArticleFragment articleFragment = (ArticleFragment)
-                getSupportFragmentManager().findFragmentById(R.id.article);
+                getSupportFragmentManager().findFragmentById(R.id.article_fragment);
         if (articleFragment != null) {
             // TODO: 2018/1/17 implement two-pane layout
         } else {
             articleFragment = new ArticleFragment();
-
+            Bundle bundle = new Bundle();
+            bundle.putInt(ArticleFragment.ARG_POSITION, position);
+            articleFragment.setArguments(bundle);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, articleFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
         }
 
     }
